@@ -106,8 +106,8 @@ public class Maze {
     public boolean criticalPoint(Point p){
         int x = p.x;
         int y = p.y;
-        // The point is outside of the maze or it is on the edge.
-        if(x<=0 || x>=Xdim || y<=0 || y>=Ydim) return false;
+        // The point is outside of the maze.
+        if(x<0 || x>=Xdim || y<0 || y>=Ydim) return false;
         // The point is a wall
         if(walls[x][y]==MazeTile.WALL) return false;
         // If this is the start point

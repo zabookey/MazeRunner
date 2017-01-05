@@ -59,14 +59,27 @@ public class MazeNode {
         return connections.size();
     }
     
+    @Override
+    public boolean equals(Object o){
+        if(o == null) return false;
+        if(o instanceof MazeNode){
+            MazeNode other = (MazeNode) o;
+            Point p = other.getCoordinate();
+            if(p.equals(coordinate)) return true;
+            else return false;
+        } else return false;
+    }
+    
     public void print(PrintStream out){
         out.println("Point: ("+coordinate.x+", "+coordinate.y+")");
         out.println("Connections: "+connections.size());
-        out.print("\t");
-        Iterator<MazeNode> iter = connections.iterator();
-        while(iter.hasNext()){
-            Point p = iter.next().getCoordinate();
-            out.print("("+p.x+", "+p.y+") ");
+        if(connections.size() > 0){
+            out.print("\t");
+            Iterator<MazeNode> iter = connections.iterator();
+            while(iter.hasNext()){
+                Point p = iter.next().getCoordinate();
+                out.print("("+p.x+", "+p.y+") ");
+            }
         }
     }
 }
