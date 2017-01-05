@@ -5,23 +5,38 @@
  */
 package Maze.Graph;
 
+import java.awt.Point;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
  * @author zbookey
  */
 public class MazeNode {
-    private String id;
+    private Point coordinate;
     private ArrayList<MazeNode> connections;
     
     public MazeNode(){
-        id = "";
+        this(new Point(-1,-1));
+    }
+    
+    public MazeNode(int x, int y){
+        this(new Point(x,y));
+    }
+    
+    public MazeNode(Point p){
+        coordinate = p;
         connections = new ArrayList();
     }
     
-    public String getID(){
-        return id;
+    public Point getCoordinate(){
+        return coordinate;
+    }
+    
+    private void setCoordinate(Point p){
+        coordinate = p;
     }
     
     public ArrayList<MazeNode> getConnections(){
@@ -32,9 +47,9 @@ public class MazeNode {
         return connections.add(connection);
     }
     
-    public boolean isConnectedTo(String id){
+    public boolean isConnectedTo(Point p){
         for(int i = 0; i < connections.size(); i++){
-            if(connections.get(i).id == id)
+            if(connections.get(i).coordinate.equals(p))
                 return true;
         }
         return false;
@@ -42,5 +57,16 @@ public class MazeNode {
     
     public int numberOfConnections(){
         return connections.size();
+    }
+    
+    public void print(PrintStream out){
+        out.println("Point: ("+coordinate.x+", "+coordinate.y+")");
+        out.println("Connections: "+connections.size());
+        out.print("\t");
+        Iterator<MazeNode> iter = connections.iterator();
+        while(iter.hasNext()){
+            Point p = iter.next().getCoordinate();
+            out.print("("+p.x+", "+p.y+") ");
+        }
     }
 }

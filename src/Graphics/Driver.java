@@ -5,6 +5,7 @@
  */
 package Graphics;
 
+import Maze.Graph.MazeGraph;
 import Maze.Maze;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -40,10 +41,13 @@ public class Driver extends JPanel{
     
     public static void main(String[] args){
         String filename = "/home/zbookey/NetBeansProjects/MazeRunner/src/InputFiles/input.txt";
-        Maze m = new Maze(filename);
-        m.print(System.out);
+        //Maze m = new Maze(filename);
+        //m.print(System.out);
         JFrame frame = new JFrame("");
         Driver driver = new Driver(filename);
+        driver.m.print(System.out);
+        MazeGraph graph = new MazeGraph(driver.m);
+        graph.print(System.out);
         frame.add(driver);
         frame.setSize(driver.WINDOW_WIDTH, driver.WINDOW_HEIGHT);
         frame.setResizable(false);
