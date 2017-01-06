@@ -39,6 +39,14 @@ public class MazeNode {
         coordinate = p;
     }
     
+    public int getX(){
+        return coordinate.x;
+    }
+    
+    public int getY(){
+        return coordinate.y;
+    }
+    
     public ArrayList<MazeNode> getConnections(){
         return connections;
     }
@@ -80,6 +88,7 @@ public class MazeNode {
                 Point p = iter.next().getCoordinate();
                 out.print("("+p.x+", "+p.y+") ");
             }
+            out.println();
         }
     }
 }
