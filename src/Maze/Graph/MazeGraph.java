@@ -126,14 +126,24 @@ public class MazeGraph {
     }
     
     public void draw(Graphics2D g, int width, int height){
-        g.setColor(Color.orange);
+        
         int wallSizeX = width/MazeXdim;
         int wallSizeY = height/MazeYdim;
+        int Xoffset = wallSizeX/2;
+        int Yoffset = wallSizeY/2;
         Iterator<MazeNode> iter = nodes.iterator();
         while(iter.hasNext()){
+            g.setColor(Color.orange);
             MazeNode node = iter.next();
             Point p = node.getCoordinate();
             g.fillRect(p.x*wallSizeX, p.y*wallSizeY, wallSizeX, wallSizeY);
+            Iterator<MazeNode> conIter = node.getConnections().iterator();
+            while(conIter.hasNext()){
+                MazeNode connect = conIter.next();
+                Point connectPoint = connect.getCoordinate();
+                g.setColor(Color.red);
+                g.drawLine(connectPoint.x*wallSizeX+Xoffset, connectPoint.y*wallSizeY+Yoffset, p.x*wallSizeX+Xoffset, p.y*wallSizeY+Yoffset);
+            }
         }
     }
     
