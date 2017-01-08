@@ -16,7 +16,7 @@ import java.util.Iterator;
  */
 public class MazeNode {
     private Point coordinate;
-    private ArrayList<MazeNode> connections;
+    private ArrayList<Connection> connections;
     
     public MazeNode(){
         this(new Point(-1,-1));
@@ -47,17 +47,17 @@ public class MazeNode {
         return coordinate.y;
     }
     
-    public ArrayList<MazeNode> getConnections(){
+    public ArrayList<Connection> getConnections(){
         return connections;
     }
     
     public boolean addConnection(MazeNode connection){
-        return connections.add(connection);
+        return connections.add(new Connection(connection));
     }
     
     public boolean isConnectedTo(Point p){
         for(int i = 0; i < connections.size(); i++){
-            if(connections.get(i).coordinate.equals(p))
+            if(connections.get(i).getNode().coordinate.equals(p))
                 return true;
         }
         return false;
@@ -83,9 +83,9 @@ public class MazeNode {
         out.println("Connections: "+connections.size());
         if(connections.size() > 0){
             out.print("\t");
-            Iterator<MazeNode> iter = connections.iterator();
+            Iterator<Connection> iter = connections.iterator();
             while(iter.hasNext()){
-                Point p = iter.next().getCoordinate();
+                Point p = iter.next().getNode().getCoordinate();
                 out.print("("+p.x+", "+p.y+") ");
             }
             out.println();

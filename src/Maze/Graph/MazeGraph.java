@@ -137,9 +137,9 @@ public class MazeGraph {
             MazeNode node = iter.next();
             Point p = node.getCoordinate();
             g.fillRect(p.x*wallSizeX, p.y*wallSizeY, wallSizeX, wallSizeY);
-            Iterator<MazeNode> conIter = node.getConnections().iterator();
+            Iterator<Connection> conIter = node.getConnections().iterator();
             while(conIter.hasNext()){
-                MazeNode connect = conIter.next();
+                MazeNode connect = conIter.next().getNode();
                 Point connectPoint = connect.getCoordinate();
                 g.setColor(Color.red);
                 g.drawLine(connectPoint.x*wallSizeX+Xoffset, connectPoint.y*wallSizeY+Yoffset, p.x*wallSizeX+Xoffset, p.y*wallSizeY+Yoffset);
