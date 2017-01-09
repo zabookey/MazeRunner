@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -127,28 +128,30 @@ public class Maze {
         else return false;
     }
     //TODO Depth could be used to ensure we never infinite loop here
-    public Point nextCriticalAlongPath(Point start, int dx, int dy){
+    public Point nextCriticalAlongPath(Point start, int dx, int dy, ArrayList<Point> path){
+        // Add this point to path.
+        path.add(start);
         // If the point is a critical Point
         if(criticalPoint(start)) return start;
         else{
             int x = start.x;
             int y = start.y;
             // If the spot in the desired direction is available move to it.
-            if(walls[x+dx][y+dy] != MazeTile.WALL) return nextCriticalAlongPath(new Point(x+dx,y+dy), dx, dy);
+            if(walls[x+dx][y+dy] != MazeTile.WALL) return nextCriticalAlongPath(new Point(x+dx,y+dy), dx, dy, path);
             // Else try a new direction.
             else{
                 //North
                 if(!(dx==0&&dy==1)&&!(dx==0&&dy==-1)&&walls[x][y+1]!=MazeTile.WALL)
-                    return nextCriticalAlongPath(new Point(x,y+1),0,1);
+                    return nextCriticalAlongPath(new Point(x,y+1),0,1, path);
                 //East
                 else if(!(dx==1&&dy==0)&&!(dx==-1&&dy==0)&&walls[x+1][y]!=MazeTile.WALL)
-                    return nextCriticalAlongPath(new Point(x+1,y),1,0);
+                    return nextCriticalAlongPath(new Point(x+1,y),1,0, path);
                 //South
                 else if(!(dx==0&&dy==-1)&&!(dx==0&&dy==1)&&walls[x][y-1]!=MazeTile.WALL)
-                    return nextCriticalAlongPath(new Point(x,y-1),0,-1);
+                    return nextCriticalAlongPath(new Point(x,y-1),0,-1, path);
                 //West
                 else if(!(dx==-1&&dy==0)&&!(dx==1&&dy==0)&&walls[x-1][y]!=MazeTile.WALL)
-                    return nextCriticalAlongPath(new Point(x-1,y),-1,0);
+                    return nextCriticalAlongPath(new Point(x-1,y),-1,0, path);
                 else{
                     //This is bad... Fix it later.
                     return new Point(-1,-1);
