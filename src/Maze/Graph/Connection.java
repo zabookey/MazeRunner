@@ -5,6 +5,8 @@
  */
 package Maze.Graph;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -31,5 +33,14 @@ public class Connection {
     
     public ArrayList<Point> getPath(){
         return path;
+    }
+    
+    public void draw(Graphics2D g, int wallSizeX, int wallSizeY, int Xoffset, int Yoffset){
+        g.setColor(Color.red);
+        for(int i = 0; i<path.size()-1; i++){
+            Point start = path.get(i);
+            Point end = path.get(i+1);
+            g.drawLine(start.x*wallSizeX+Xoffset, start.y*wallSizeY+Yoffset, end.x*wallSizeX+Xoffset, end.y*wallSizeY+Yoffset);
+        }
     }
 }

@@ -43,14 +43,15 @@ public class MazeGraph {
             //Check the north path for critical points!
             Point north = new Point(current.getX(), current.getY()+1);
             if(m.isPath(north)){
-                Point critical = m.nextCriticalAlongPath(north, 0, 1);
+                ArrayList<Point> path = new ArrayList();
+                Point critical = m.nextCriticalAlongPath(north, 0, 1, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
                     boolean nodePreviouslyFound = true;
                     if(visited.contains(found)) found = visited.get(visited.indexOf(found));
                     else if(todo.contains(found)) found = todo.get(todo.indexOf(found));
                     else nodePreviouslyFound = false;
-                    current.addConnection(found);
+                    current.addConnection(found, path);
                     if(!nodePreviouslyFound)
                         todo.push(found);
                 }
@@ -58,14 +59,15 @@ public class MazeGraph {
             // Check the east path for critical points!
             Point east = new Point(current.getX()+1, current.getY());
             if(m.isPath(east)){
-                Point critical = m.nextCriticalAlongPath(east, 1, 0);
+                ArrayList<Point> path = new ArrayList();
+                Point critical = m.nextCriticalAlongPath(east, 1, 0, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
                     boolean nodePreviouslyFound = true;
                     if(visited.contains(found)) found = visited.get(visited.indexOf(found));
                     else if(todo.contains(found)) found = todo.get(todo.indexOf(found));
                     else nodePreviouslyFound = false;
-                    current.addConnection(found);
+                    current.addConnection(found, path);
                     if(!nodePreviouslyFound)
                         todo.push(found);
                 }
@@ -73,14 +75,15 @@ public class MazeGraph {
             // Check the south pat for critical points!
             Point south = new Point(current.getX(), current.getY()-1);
             if(m.isPath(south)){
-                Point critical = m.nextCriticalAlongPath(south, 0, -1);
+                ArrayList<Point> path = new ArrayList();
+                Point critical = m.nextCriticalAlongPath(south, 0, -1, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
                     boolean nodePreviouslyFound = true;
                     if(visited.contains(found)) found = visited.get(visited.indexOf(found));
                     else if(todo.contains(found)) found = todo.get(todo.indexOf(found));
                     else nodePreviouslyFound = false;
-                    current.addConnection(found);
+                    current.addConnection(found, path);
                     if(!nodePreviouslyFound)
                         todo.push(found);
                 }
@@ -88,14 +91,15 @@ public class MazeGraph {
             // Check the west path for critical points!
             Point west = new Point(current.getX()-1, current.getY());
             if(m.isPath(west)){
-                Point critical = m.nextCriticalAlongPath(west, -1, 0);
+                ArrayList<Point> path = new ArrayList();
+                Point critical = m.nextCriticalAlongPath(west, -1, 0, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
                     boolean nodePreviouslyFound = true;
                     if(visited.contains(found)) found = visited.get(visited.indexOf(found));
                     else if(todo.contains(found)) found = todo.get(todo.indexOf(found));
                     else nodePreviouslyFound = false;
-                    current.addConnection(found);
+                    current.addConnection(found, path);
                     if(!nodePreviouslyFound)
                         todo.push(found);
                 }
@@ -133,16 +137,12 @@ public class MazeGraph {
         int Yoffset = wallSizeY/2;
         Iterator<MazeNode> iter = nodes.iterator();
         while(iter.hasNext()){
-            g.setColor(Color.orange);
             MazeNode node = iter.next();
-            Point p = node.getCoordinate();
-            g.fillRect(p.x*wallSizeX, p.y*wallSizeY, wallSizeX, wallSizeY);
+            node.draw(g, wallSizeX, wallSizeY);
             Iterator<Connection> conIter = node.getConnections().iterator();
             while(conIter.hasNext()){
-                MazeNode connect = conIter.next().getNode();
-                Point connectPoint = connect.getCoordinate();
-                g.setColor(Color.red);
-                g.drawLine(connectPoint.x*wallSizeX+Xoffset, connectPoint.y*wallSizeY+Yoffset, p.x*wallSizeX+Xoffset, p.y*wallSizeY+Yoffset);
+                Connection c = conIter.next();
+                c.draw(g,wallSizeX,wallSizeY,Xoffset,Yoffset);
             }
         }
     }

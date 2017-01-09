@@ -5,6 +5,8 @@
  */
 package Maze.Graph;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -51,8 +53,8 @@ public class MazeNode {
         return connections;
     }
     
-    public boolean addConnection(MazeNode connection){
-        return connections.add(new Connection(connection));
+    public boolean addConnection(MazeNode connection, ArrayList<Point> path){
+        return connections.add(new Connection(connection, path));
     }
     
     public boolean isConnectedTo(Point p){
@@ -76,6 +78,11 @@ public class MazeNode {
             if(p.equals(coordinate)) return true;
             else return false;
         } else return false;
+    }
+    
+    public void draw(Graphics2D g, int wallSizeX, int wallSizeY){
+        g.setColor(Color.orange);
+        g.fillRect(coordinate.x*wallSizeX, coordinate.y*wallSizeY, wallSizeX, wallSizeY);
     }
     
     public void print(PrintStream out){
