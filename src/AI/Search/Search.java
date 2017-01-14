@@ -5,6 +5,7 @@
  */
 package AI.Search;
 
+import AI.Heuristic.Heuristic;
 import Maze.Graph.Connection;
 import Maze.Graph.MazeNode;
 import java.util.ArrayList;
@@ -16,6 +17,6 @@ import java.util.ArrayList;
 public interface Search {
     
     // The assumption is that these array lists come in empty and will be added to as the search occurs.
-    public boolean search(ArrayList<MazeNode> nodes, ArrayList<Connection> path);
+    public boolean search(ArrayList<MazeNode> nodes, ArrayList<Connection> path, Heuristic heuristic);
     
 }

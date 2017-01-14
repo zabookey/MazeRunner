@@ -5,6 +5,7 @@
  */
 package AI;
 
+import AI.Heuristic.Heuristic;
 import Maze.Graph.Connection;
 import Maze.Graph.MazeGraph;
 import Maze.Graph.MazeNode;
@@ -33,8 +34,8 @@ public class MazeRunner {
         this.graph = graph;
     }
     
-    public void solve(Search s){
-        s.search(nodes, connections);
+    public void solve(Search s, Heuristic h){
+        s.search(nodes, connections, h);
     }
     
     public ArrayList<MazeNode> getNodes(){

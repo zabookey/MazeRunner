@@ -40,7 +40,9 @@ public class Connection {
         for(int i = 0; i<path.size()-1; i++){
             Point start = path.get(i);
             Point end = path.get(i+1);
-            g.drawLine(start.x*wallSizeX+Xoffset, start.y*wallSizeY+Yoffset, end.x*wallSizeX+Xoffset, end.y*wallSizeY+Yoffset);
+            g.fillRect(start.x*wallSizeX, start.y*wallSizeY, wallSizeX, wallSizeY);
+            g.fillRect(end.x*wallSizeX, end.y*wallSizeY, wallSizeX, wallSizeY);
+            //g.drawLine(start.x*wallSizeX+Xoffset, start.y*wallSizeY+Yoffset, end.x*wallSizeX+Xoffset, end.y*wallSizeY+Yoffset);
         }
     }
 }

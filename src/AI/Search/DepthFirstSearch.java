@@ -5,6 +5,7 @@
  */
 package AI.Search;
 
+import AI.Heuristic.Heuristic;
 import Maze.Graph.Connection;
 import Maze.Graph.MazeGraph;
 import Maze.Graph.MazeNode;
@@ -27,7 +28,7 @@ public class DepthFirstSearch implements Search{
     }
 
     @Override
-    public boolean search(ArrayList<MazeNode> nodes, ArrayList<Connection> path) {
+    public boolean search(ArrayList<MazeNode> nodes, ArrayList<Connection> path, Heuristic heuristic) {
         MazeNode startNode = graph.getNode(maze.getStart());
         MazeNode endNode = graph.getNode(maze.getEnd());
         DFS_Node root = new DFS_Node(startNode);
@@ -133,6 +134,7 @@ public class DepthFirstSearch implements Search{
         // Returns true if a new node can be created from this and false if not possible
         public boolean createNewNode(){
             ArrayList<Connection> c = mnode.getConnections();
+            DFS_Node nextNode = null;
             Iterator<Connection> iter = c.iterator();
             while(iter.hasNext()){
                 Connection next = iter.next();

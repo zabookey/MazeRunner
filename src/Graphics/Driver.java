@@ -5,6 +5,7 @@
  */
 package Graphics;
 
+import AI.Heuristic.Heuristic;
 import AI.MazeRunner;
 import AI.Search.DepthFirstSearch;
 import Maze.Graph.MazeGraph;
@@ -24,7 +25,7 @@ public class Driver extends JPanel{
     public final int WINDOW_WIDTH = 800;
     public final int WINDOW_HEIGHT = 800;
     
-    private final boolean DRAW_GRAPH = true;
+    private final boolean DRAW_GRAPH = false;
     private final boolean DRAW_SOLUTION = true;
     
     private Maze m;
@@ -45,8 +46,8 @@ public class Driver extends JPanel{
         
     }
     
-    public void solve(Search method){
-        ai.solve(method);
+    public void solve(Search method, Heuristic h){
+        ai.solve(method,h);
     }
     
     public void paint(Graphics g){
@@ -74,7 +75,7 @@ public class Driver extends JPanel{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         driver.repaint();
-        driver.solve(new DepthFirstSearch(driver.m, driver.mg));
+        driver.solve(new DepthFirstSearch(driver.m, driver.mg), null);
     }
 }
 
