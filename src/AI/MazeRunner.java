@@ -5,12 +5,14 @@
  */
 package AI;
 
-import AI.Search.SearchInterface;
 import Maze.Graph.Connection;
 import Maze.Graph.MazeGraph;
 import Maze.Graph.MazeNode;
 import Maze.Maze;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Iterator;
+import AI.Search.Search;
 
 /**
  * This is the class that will be handed a maze object and figure out how to solve it.
@@ -23,15 +25,15 @@ public class MazeRunner {
     private Maze maze;
     private MazeGraph graph;
     
-    private ArrayList<MazeNode> nodes;
-    private ArrayList<Connection> connections;
+    private ArrayList<MazeNode> nodes = new ArrayList<>();
+    private ArrayList<Connection> connections = new ArrayList<>();
     
     public MazeRunner(Maze maze, MazeGraph graph){
         this.maze = maze;
         this.graph = graph;
     }
     
-    public void solve(SearchInterface s){
+    public void solve(Search s){
         s.search(nodes, connections);
     }
     
@@ -41,5 +43,16 @@ public class MazeRunner {
     
     public ArrayList<Connection> getConnections(){
         return connections;
+    }
+    
+    public void draw(Graphics2D g, int width, int height){
+        int wallSizeX = width/maze.getXdim();
+        int wallSizeY = height/maze.getYdim();
+        int Xoffset = wallSizeX/2;
+        int Yoffset = wallSizeY/2;
+        Iterator<Connection> iter = connections.iterator();
+        while(iter.hasNext()){
+            iter.next().draw(g,wallSizeX,wallSizeY,Xoffset,Yoffset);
+        }
     }
 }

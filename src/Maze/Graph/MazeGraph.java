@@ -44,6 +44,7 @@ public class MazeGraph {
             Point north = new Point(current.getX(), current.getY()+1);
             if(m.isPath(north)){
                 ArrayList<Point> path = new ArrayList();
+                path.add(current.getCoordinate());
                 Point critical = m.nextCriticalAlongPath(north, 0, 1, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
@@ -60,6 +61,7 @@ public class MazeGraph {
             Point east = new Point(current.getX()+1, current.getY());
             if(m.isPath(east)){
                 ArrayList<Point> path = new ArrayList();
+                path.add(current.getCoordinate());
                 Point critical = m.nextCriticalAlongPath(east, 1, 0, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
@@ -76,6 +78,7 @@ public class MazeGraph {
             Point south = new Point(current.getX(), current.getY()-1);
             if(m.isPath(south)){
                 ArrayList<Point> path = new ArrayList();
+                path.add(current.getCoordinate());
                 Point critical = m.nextCriticalAlongPath(south, 0, -1, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);
@@ -92,6 +95,7 @@ public class MazeGraph {
             Point west = new Point(current.getX()-1, current.getY());
             if(m.isPath(west)){
                 ArrayList<Point> path = new ArrayList();
+                path.add(current.getCoordinate());
                 Point critical = m.nextCriticalAlongPath(west, -1, 0, path);
                 if(!critical.equals(new Point(-1,-1))){
                     MazeNode found = new MazeNode(critical);

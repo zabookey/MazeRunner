@@ -13,9 +13,9 @@ import java.util.ArrayList;
  *
  * @author Zach
  */
-public interface SearchInterface {
+public interface Search {
     
     // The assumption is that these array lists come in empty and will be added to as the search occurs.
-    public void search(ArrayList<MazeNode> nodes, ArrayList<Connection> path);
+    public boolean search(ArrayList<MazeNode> nodes, ArrayList<Connection> path);
     
 }

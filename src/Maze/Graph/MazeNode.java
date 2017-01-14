@@ -65,6 +65,20 @@ public class MazeNode {
         return false;
     }
     
+    public Connection getConnection(Point p){
+        Iterator<Connection> iter = connections.iterator();
+        while(iter.hasNext()){
+            Connection c = iter.next();
+            if(c.getNode().getCoordinate() == p) return c;
+        }
+        // Return null if no connection is found
+        return null;
+    }
+    
+    public Connection getConnection(MazeNode n){
+        return getConnection(n.getCoordinate());
+    }
+    
     public int numberOfConnections(){
         return connections.size();
     }

@@ -5,12 +5,15 @@
  */
 package Graphics;
 
+import AI.MazeRunner;
+import AI.Search.DepthFirstSearch;
 import Maze.Graph.MazeGraph;
 import Maze.Maze;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import AI.Search.Search;
 
 /**
  *
@@ -18,10 +21,15 @@ import javax.swing.JPanel;
  */
 public class Driver extends JPanel{
     
-    public final int WINDOW_WIDTH = 500;
-    public final int WINDOW_HEIGHT = 500;
+    public final int WINDOW_WIDTH = 800;
+    public final int WINDOW_HEIGHT = 800;
+    
+    private final boolean DRAW_GRAPH = true;
+    private final boolean DRAW_SOLUTION = true;
+    
     private Maze m;
     private MazeGraph mg;
+    private MazeRunner ai;
     
     public Driver(){
         setFocusable(true);
@@ -30,17 +38,25 @@ public class Driver extends JPanel{
         super();
         m = new Maze(filename);
         mg = new MazeGraph(m);
+        ai = new MazeRunner(m,mg);
     }
     
     private void update(){
         
     }
     
+    public void solve(Search method){
+        ai.solve(method);
+    }
+    
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         m.draw(g2d,WINDOW_WIDTH-50, WINDOW_HEIGHT-50);
-        mg.draw(g2d,WINDOW_WIDTH-50, WINDOW_HEIGHT-50);
-        
+        if(DRAW_GRAPH)
+            mg.draw(g2d,WINDOW_WIDTH-50, WINDOW_HEIGHT-50);
+        if(DRAW_SOLUTION){
+            ai.draw(g2d,WINDOW_WIDTH-50, WINDOW_HEIGHT-50);
+        }
     }
     
     public static void main(String[] args){
@@ -58,6 +74,7 @@ public class Driver extends JPanel{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         driver.repaint();
+        driver.solve(new DepthFirstSearch(driver.m, driver.mg));
     }
 }
 
